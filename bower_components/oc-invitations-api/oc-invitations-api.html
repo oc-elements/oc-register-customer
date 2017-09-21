@@ -1,0 +1,96 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../oc-core-utils/oc-api-provider-behaviour.html">
+
+<!--
+`oc-invitations-api`
+Element to consume the Ordercloud invitations API
+
+@demo demo/index.html 
+-->
+
+<dom-module id="oc-invitations-api">
+  <template>
+    <iron-ajax id="getInvitations"></iron-ajax>
+    <iron-ajax id="getInvitation"></iron-ajax>
+    <iron-ajax id="createInvitation"></iron-ajax>
+    <iron-ajax id="resendInvite"></iron-ajax>
+    <iron-ajax id="rejectInvite"></iron-ajax>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'oc-invitations-api',
+      behaviors: [OC.Behaviours.ApiProvider],
+
+      /**
+       * Retrieve invites from a organisation.
+       *
+       * @return {Promise}
+       */
+      getInvitations: function(orgId) {
+        this.$.getInvitations.url = this._url('invitations?organisationId='+orgId);
+        return this._generateRequest(this.$.getInvitations);
+      },
+
+
+      /**
+       * Retrieve  a single invite
+       *
+       ** @param {String} inviteHash
+       * @return {Promise}
+       */
+      getInvitation: function(inviteHash) {
+        this.$.getInvitation.url = this._url('invitations/'+inviteHash);
+        return this._generateRequest(this.$.getInvitation);
+      },
+
+      /**
+       * Create a new invitation
+       *
+       * @param {Object[]} paramsArr - array of objects containing invitation details
+       * @param {Object[]} paramsArr[].contacts[] - Contact details e.g. ["test@example.com", "+271231231234"]
+       * @param {Number} paramsArr[].organisationId - Organisation ID
+       * @param {Object[]} paramsArr[].groups[] - Array Org groups ID's invitee belongs to e.g [1,2,3]
+       *
+       * @return {Promise}
+       */
+      createInvitation: function(paramsArr) {
+        this.$.createInvitation.url = this._url('invitations');
+        this.$.createInvitation.method = "POST";
+        this.$.createInvitation.contentType = "application/json";
+        this.$.createInvitation.body = paramsArr;
+        return this._generateRequest(this.$.createInvitation);
+      },
+
+      /**
+       * Resend a email
+       *
+       * @param {String} inviteId
+       * @return {Promise}
+       */
+      resendInvite: function(inviteId) {
+        this.$.resendInvite.url = this._url('invitations/'+inviteId+'/resend');
+        this.$.resendInvite.method = "PUT";
+        this.$.resendInvite.contentType = "application/json";
+        return this._generateRequest(this.$.resendInvite);
+      },
+
+      /**
+       * Reject a email
+       *
+       * @param {String} inviteHash
+       * @return {Promise}
+       */
+      rejectInvite: function(inviteHash) {
+        this.$.rejectInvite.url = this._url('invitations/'+inviteHash+'/decline');
+        this.$.rejectInvite.method = "PUT";
+        this.$.rejectInvite.contentType = "application/json";
+        return this._generateRequest(this.$.rejectInvite);
+      },
+
+
+    });
+  </script>
+</dom-module>

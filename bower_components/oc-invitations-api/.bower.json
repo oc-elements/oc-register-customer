@@ -1,0 +1,26 @@
+{
+  "name": "oc-invitations-api",
+  "description": "Element to consume the Ordercloud invitations API",
+  "main": "oc-invitations-api.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.2.0",
+    "oc-core-utils": "git://github.com/oc-elements/oc-core-utils#1.x"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/oc-elements/oc-invitations-api",
+  "_release": "deac463581",
+  "_resolution": {
+    "type": "branch",
+    "branch": "1.x",
+    "commit": "deac463581122f789a5c95943f0ee5c344eda31b"
+  },
+  "_source": "git://github.com/oc-elements/oc-invitations-api.git",
+  "_target": "1.x",
+  "_originalSource": "git://github.com/oc-elements/oc-invitations-api"
+}
